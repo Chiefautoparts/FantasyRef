@@ -10,6 +10,10 @@ def home(request):
 	return render(request, 'teamsApp/team/html')
 	# return render(request, 'teamsApp/team.html')
 
+# def refTables(request):
+	
+
+
 def addTeam(request):
 	available_refs = Ref.objects.all()
 	context = {

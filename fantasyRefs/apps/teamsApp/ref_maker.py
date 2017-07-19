@@ -2,7 +2,7 @@ import random
 import math
 from .models import Ref
 
-def generate_ref(num=25):
+def random_ref_name(num=25):
 	available_refs = []
 	first_names = ['Noah', 'Liam', 'Mason', 'Jacob', 'William', 'Ethan', 'James', 'Alexander', 'Michael', 'Benjamin', 'Elijah', 'Daniel', 'Aiden', 'Logan', 'Matthew', 'Lucas', 'Jackson', 'David', 'Oliver', 'Jayden', 'Joseph', 'Gabriel', 'Samuel', 'Carter', 'Anthony', 'John', 'Dylan', 'Luke', 'Henry', 'Andrew', 'Isaac', 'Christopher', 'Joshua', 'Wyatt', 'Sebastian', 'Owen', 'Caleb', 'Nathan', 'Ryan', 'Jack', 'Hunter', 'Levi', 'Christian', 'Jaxon', 'Julian', 'Landon', 'Grayson', 'Jonathan', 'Isaiah', 'Charles', 'Emma', 'Olivia', 'Sophia', 'Ava', 'Isabella', 'Mia', 'Abigail', 'Emily', 'Charlotte', 'Harper']
 
@@ -15,3 +15,5 @@ def generate_ref(num=25):
 		
 		new_ref = Ref.objects.create(first_name=first_names, last_name=last_names)
 		new_ref.available_refs.add(ref)
+
+
