@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, HttpResponse, redirect
+from django.contrib import messages
 from .models import User
 # Create your views here.
 def index(request):
@@ -12,21 +13,24 @@ def loginUser(request):
 	if not status['valid']:
 		for error in status['errors']:
 			messages.error(request, error)
-		return redirect('/')
 	else:
-		user = User.objects.filter(id=results['id'])
-		request.session['id']= user.id
-	return redirect('Team:home')
-	print 'login success' + '*'*100
+		request.session['id']= status['user'].id
+		return redirect('/show')
+	return redirect('/')
 
 def register(request):
 	status = User.objects.registerValidation(request.POST)
 	if not status['valid']:
 		for error in status['errors']:
 			messages.error(request, error)
-		return redirect('/')
-	request.session['id'] = status['user'].id
-	return redirect('Team:home')
-	print 'Register'*500
+	else:
+		request.session['id'] = status['user'].id
+		return redirect('/show')
+	return redirect('/')
 
-
+def show(request):
+	user = User.objects.get(id=request.session['id'])
+	context = {
+		'user': user
+	}
+	return render(request, 'refApp/TeamPages.html', context)
