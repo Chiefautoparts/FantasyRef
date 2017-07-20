@@ -4,7 +4,7 @@ import re
 import bcrypt
 
 from datetime import datetime
-from django.db import models
+from django.db import models, IntegrityError
 
 class UserManager(models.Manager):
     def registerValidation(self, postData):
@@ -15,51 +15,50 @@ class UserManager(models.Manager):
         if not postData['username'] or len(postData['username']) < 3:
             status['valid'] = False
             status['errors'].append('Username isnt good enough to be on this site. Pick a new one or leave')
-        # if not re.postData['email'](r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9-.]+$)'):
-        #     status['valid'] = False
-        #     status['errors'].append('INVALID EMAIL!!!!')
+        if not postData['email'] or not re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9-.]+$)', postData['email']):
+             status['valid'] = False
+             status['errors'].append('INVALID EMAIL!!!!')
         if not postData['password'] or len(postData['password']) < 6:
             status['valid'] = False
             status['errors'].append('Password is too weak. TOO WEAK!!!!!')
         if postData['confirm_password'] != postData['password']:
             status['valid'] = False
             status['errors'].append('Your Passwords Don\'t match Dumbass.')
-        if status['valid'] is False:
-            return status
+          
         user = User.objects.filter(username=postData['username'])
 
-        if user:
-            status['valid'] =False
-            status['errors'].append('Failed at life... I mean failed to register user')
-
         if status['valid']:
-            userpassword = bcrypt.hashpw(postData['password'].encode, bcrypt.gensalt())
-            user = User.objects.create(
-                name = postData['name'],
-                username = postData['username'],
-                email = postData['email'],
-                password = userpassword
-                )
-            status['user'] = user
-        return status
+            try:
+                user = User.objects.create(
+                    name=postData['name'],
+                    username=postData['username'],
+                    email=postData['email'],
+                    password=(bcrypt.hashpw(postData['password'].encode(), bcrypt.gensalt())))
+                print user.password
+                user.save()
+                status['user'] = user
+            except IntegrityError as e:
+                status['valid'] = False
+                # if 'UNIQUE constraint' in e.message:
+                #     status['errors'].append('that email already exists, duuude parallel universe')
+                # else:
+                #     status['errors'].append(e.message)
+            return status
 
     def loginValidation(self, postData):
         status = {'valid':True, 'errors': [], 'user':None}
-        user = User.objects.filter(username=postData['username'])
         try:
-            user[0]
-        except IndexError:
-            status['valid'] = False
-            status['errors'].append('This infor provided is about as credible as CNN. try again')
-
-        if user[0]:
-            if user[0].password != bcrypt.hashpw(postData['userpassword'].encode(), user[0].password.encode()):
-                status['valid'] = False
-                status['errors'].append('el passwordo is no goodo')
+            user = User.objects.filter(username=postData['username'])
+            if user.password == (bcrypt.hashpw(postData['password'].encode(), user.password.encode())):
+                pass
             else:
-                status['user']=user[0].id
-        else:
+                raise Exception()
+        except Exception as e:
             status['valid'] = False
+            status['errors'].append("WRONG!!!!!")
+
+        if status['valid']:
+            status['user'] = user
         return status
 
 

@@ -8,39 +8,53 @@
     <link rel="stylesheet" href="{% static 'refApp/css/style.css' %}">
   </head>
   <body>
+
     <h1>Fantasy Referee</h1>
     <p>Here we have a fantasy football style league but instead of player you earn points based on hte refs and penalties given</p>
-    <ul>How it Works
-      <li>Earning Points:
+    <div class="fade"></div>
+    <section class="headUL">
+    <ul class="crawl">How it Works
+      <li id="sections">Earning Points:
         <ul>
           <li>5 Yrd Penalty --> 1 point</li>
           <li>10 Yrd Penalty --> 2 points</li>
           <li>15 Yrd Penalty --> 3 points</li>
           <li>Half the Distance to the Goal --> 3 points</li>
           <li>Player Get in the Face of Your Ref --> 2 points</li>
-      </ul></li>
-      <li>Point Multipliers:
+        </ul>
+      </li>
+      <li id="sections">Point Multipliers:
         <ul>
           <li>Crowd "Boo" so Loud that the Ref Cannot be Heard --> x2 points(applies to points earned on penalty called)</li>
           <li>Head Ref for Monday Night Football --> x1.5 points (applies to total points earned from game)</li>
           <li>Head Ref for Super Bowl --> x2 points(applies to total points earned from game)</li>
-      </ul></li>
-      <li>Loss of Points:
+        </ul>
+      </li>
+      <li id="sections">Loss of Points:
         <ul>
           <li>Sports Commintators Make Fun of Your Ref --> -1 point</li>
           <li>Player Gets Up In Your Refs Face --> -1 point</li>
           <li>Your Refs Call is Challenged AND Overturned --> Lose all current points for game</li>
-      </ul></li>
+        </ul>
+      </li>
     </ul>
+    </section>
+    {% if messages %}
+    <ul id="messages">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     <div>
-      <form action="/login" method="post">
+      <form id="logForm" action="/login" method="post">
         {% csrf_token %}
         Username: <input type="text" name="username">
         Password: <input type="password" name="password">
         <input type="submit" name="submit" value="Login">
       </form>
       <h3>Register</h3>
-      <form action="/register" method="post">
+      <form id="regForm" action="/register" method="post">
         {% csrf_token %}
         Name: <input type="text" name="name" value=""/><br>
         Username: <input type="text" name="username" value=""/><br>
