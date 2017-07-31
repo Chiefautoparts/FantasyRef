@@ -1,0 +1,25 @@
+body {
+	background-color: #161616;
+	color: #C1B578;
+	display: inline-grid;
+	margin: auto;
+}
+
+h1 {	
+	font-size: 6em;
+	text-shadow: -5px -3px 4px #F1F2EE;
+	margin: inherit;
+	text-align: center;
+	width: 900px;
+	font-weight: bold;
+
+}
+
+p {
+	margin-left: 10px;
+	font-weight: bold;
+	border-style: solid;
+	border-color: #D8A916;
+	text-align: center;
+	padding: 7px;
+}

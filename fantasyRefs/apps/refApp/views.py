@@ -13,10 +13,11 @@ def loginUser(request):
 	if not status['valid']:
 		for error in status['errors']:
 			messages.error(request, error)
+		return redirect('login:index')
 	else:
-		request.session['id']= status['user'].id
-		return redirect('/show')
-	return redirect('/')
+		request.session['id'] = status['user'].id
+		return redirect('refs:home')
+	return redirect('refs:home')
 
 def register(request):
 	status = User.objects.registerValidation(request.POST)
@@ -24,13 +25,12 @@ def register(request):
 		for error in status['errors']:
 			messages.error(request, error)
 	else:
-		request.session['id'] = status['user'].id
-		return redirect('/show')
-	return redirect('/')
+		messages.success(request, 'User has been registered, now log in')
+	return redirect('login:index')
 
-def show(request):
-	user = User.objects.get(id=request.session['id'])
-	context = {
-		'user': user
-	}
-	return render(request, 'refApp/TeamPages.html', context)
+# def show(request):
+# 	user = User.objects.get(id=request.session['id'])
+# 	context = {
+	# 	'user': user
+	# }
+	# return render(request, 'refApp/TeamPages.html', context)

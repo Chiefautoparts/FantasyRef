@@ -5,33 +5,33 @@
 
     <title>Fantasy Refs</title>
     {% load staticfiles %}
-    <link rel="stylesheet" href="{% static 'refApp/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'refApp/css/zebra.css' %}">
   </head>
   <body>
 
     <h1>Fantasy Referee</h1>
     <p>Here we have a fantasy football style league but instead of player you earn points based on hte refs and penalties given</p>
-    <div class="fade"></div>
-    <section class="headUL">
-    <ul class="crawl">How it Works
+    
+    <section class="topText">
+    <ul class="head" >How it Works
       <li id="sections">Earning Points:
-        <ul>
-          <li>5 Yrd Penalty --> 1 point</li>
-          <li>10 Yrd Penalty --> 2 points</li>
-          <li>15 Yrd Penalty --> 3 points</li>
+        <ul id="sectText">
+          <li>5 Yrd Penalty ---> 1 point</li>
+          <li>10 Yrd Penalty ---> 2 points</li>
+          <li>15 Yrd Penalty ---> 3 points</li>
           <li>Half the Distance to the Goal --> 3 points</li>
           <li>Player Get in the Face of Your Ref --> 2 points</li>
         </ul>
       </li>
       <li id="sections">Point Multipliers:
-        <ul>
+        <ul id="sectText">
           <li>Crowd "Boo" so Loud that the Ref Cannot be Heard --> x2 points(applies to points earned on penalty called)</li>
           <li>Head Ref for Monday Night Football --> x1.5 points (applies to total points earned from game)</li>
           <li>Head Ref for Super Bowl --> x2 points(applies to total points earned from game)</li>
         </ul>
       </li>
       <li id="sections">Loss of Points:
-        <ul>
+        <ul id="sectText">
           <li>Sports Commintators Make Fun of Your Ref --> -1 point</li>
           <li>Player Gets Up In Your Refs Face --> -1 point</li>
           <li>Your Refs Call is Challenged AND Overturned --> Lose all current points for game</li>
@@ -63,6 +63,7 @@
         Confirm Password: <input type="password" name="confirm_password" value=""/><br>
         <input type="submit" name="submit" value="Register"/>
       </form>
-    </div>
+    </div>  
+
   </body>
 </html
