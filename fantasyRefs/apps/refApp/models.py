@@ -24,7 +24,7 @@ class UserManager(models.Manager):
             status['valid'] = False
             status['errors'].append('Your Passwords Don\'t match Dumbass.')
         
-        user = User.objects.filter(username=postData['username'])
+        user = User.objects.filter(email=postData['email'])
 
         # if user:
         #     status['valid'] = False
@@ -51,8 +51,8 @@ class UserManager(models.Manager):
     def loginValidation(self, postData):
         status = {'valid':True, 'errors': [], 'user':None}
         try:
-            user= User.objects.get(email=postData['email'])
-            if user[0].password !=bcrypt.hashpw(postData['password'].encode(), user[0].password.encode()):
+            user = User.objects.get(email=postData['email'])
+            if user.password == bcrypt.hashpw(postData['password'].encode(), user.password.encode()):
                 pass
             else:
                 raise Exception()
