@@ -26,10 +26,6 @@ class UserManager(models.Manager):
         
         user = User.objects.filter(email=postData['email'])
 
-        # if user:
-        #     status['valid'] = False
-        #     status['errors'].append('you dun Fucked Up. Come on it doesn\'t take rocket appliances do do this')
-
         if status['valid']:
             try:
                user = User.objects.create(
@@ -42,11 +38,13 @@ class UserManager(models.Manager):
                status['user'] = user
             except IntegrityError as e:
                 status['valid']=False
-                if  'UNIQUE constraint' in e.message:
+                if 'UNIQUE constraint' in e.message:
                     status['errors'].append('email already registered in system')
                 else: 
                     status['errors'].append(e.message)
         return status
+
+
 
     def loginValidation(self, postData):
         status = {'valid':True, 'errors': [], 'user':None}

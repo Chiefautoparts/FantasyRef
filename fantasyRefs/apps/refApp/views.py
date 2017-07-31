@@ -18,6 +18,7 @@ def loginUser(request):
 		return redirect('refs:home')
 	return redirect('login:index')
 
+
 def register(request):
 	status = User.objects.registerValidation(request.POST)
 	if not status['valid']:
