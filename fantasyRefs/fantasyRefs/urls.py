@@ -19,5 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('apps.refApp.urls', namespace='login')),
-    url(r'^', include('apps.teamsApp.urls', namespace='team')),
+    url(r'^', include('apps.teamsApp.urls', namespace='refs')),
 ]
