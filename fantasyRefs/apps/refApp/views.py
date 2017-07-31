@@ -13,11 +13,11 @@ def loginUser(request):
 	if not status['valid']:
 		for error in status['errors']:
 			messages.error(request, error)
-		return redirect('login:index')
 	else:
 		request.session['id'] = status['user'].id
 		return redirect('refs:home')
-	return redirect('refs:home')
+	return redirect('login:index')
+
 
 def register(request):
 	status = User.objects.registerValidation(request.POST)

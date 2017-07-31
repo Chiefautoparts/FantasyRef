@@ -47,20 +47,20 @@
     </ul>
     {% endif %}
     <div>
-      <form id="logForm" action="/login" method="post">
+      <form id="logForm" action="{% url 'login:login' %}" method="post">
         {% csrf_token %}
         Username: <input type="text" name="username">
         Password: <input type="password" name="password">
         <input type="submit" name="submit" value="Login">
       </form>
       <h3>Register</h3>
-      <form id="regForm" action="/register" method="post">
+      <form id="regForm" action="{% url 'login:register' %}" method="post">
         {% csrf_token %}
-        Name: <input type="text" name="name" value=""/><br>
-        Username: <input type="text" name="username" value=""/><br>
-        Email: <input type="text" name="email" value=""/><br>
-        Password: <input type="password" name="password" value=""/><br>
-        Confirm Password: <input type="password" name="confirm_password" value=""/><br>
+        Name: <input type="text" name="name" value=""/><br><br>
+        Username: <input type="text" name="username" value=""/><br><br>
+        Email: <input type="text" name="email" value=""/><br><br>
+        Password: <input type="password" name="password" value=""/><br><br>
+        Confirm Password: <input type="password" name="confirm_password" value=""/><br><br>
         <input type="submit" name="submit" value="Register"/>
       </form>
     </div>  

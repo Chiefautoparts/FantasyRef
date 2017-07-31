@@ -24,11 +24,7 @@ class UserManager(models.Manager):
             status['valid'] = False
             status['errors'].append('Your Passwords Don\'t match Dumbass.')
         
-        user = User.objects.filter(username=postData['username'])
-
-        # if user:
-        #     status['valid'] = False
-        #     status['errors'].append('you dun Fucked Up. Come on it doesn\'t take rocket appliances do do this')
+        user = User.objects.filter(email=postData['email'])
 
         if status['valid']:
             try:
@@ -42,17 +38,19 @@ class UserManager(models.Manager):
                status['user'] = user
             except IntegrityError as e:
                 status['valid']=False
-                if  'UNIQUE constraint' in e.message:
+                if 'UNIQUE constraint' in e.message:
                     status['errors'].append('email already registered in system')
                 else: 
                     status['errors'].append(e.message)
         return status
 
+
+
     def loginValidation(self, postData):
         status = {'valid':True, 'errors': [], 'user':None}
         try:
-            user= User.objects.get(email=postData['email'])
-            if user[0].password !=bcrypt.hashpw(postData['password'].encode(), user[0].password.encode()):
+            user = User.objects.get(email=postData['email'])
+            if user.password == bcrypt.hashpw(postData['password'].encode(), user.password.encode()):
                 pass
             else:
                 raise Exception()
