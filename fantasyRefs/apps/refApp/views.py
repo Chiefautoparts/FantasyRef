@@ -15,7 +15,7 @@ def loginUser(request):
 			messages.error(request, error)
 	else:
 		request.session['id'] = status['user'].id
-		return redirect('refs:home')
+		return redirect('login:success')
 	return redirect('login:index')
 
 
@@ -27,6 +27,22 @@ def register(request):
 	else:
 		messages.success(request, 'User has been registered, now log in')
 	return redirect('login:index')
+
+
+def login(request):
+	results = User.objects.loginVal(request.POST)
+	if not results['status']:
+		for error in results['errors']:
+			messages.error(request, error)
+	else:
+		request.session['id'] = results['user'].id
+		return redirect('login:success')
+	return redirect('login:index')
+
+def success(request):
+	print "***"*250
+	return redirect('refs:home')
+
 
 # def show(request):
 # 	user = User.objects.get(id=request.session['id'])
