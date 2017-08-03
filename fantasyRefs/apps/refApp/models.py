@@ -28,18 +28,18 @@ class UserManager(models.Manager):
 
         if status['valid']:
             try:
-               user = User.objects.create(
+                user = User.objects.create(
                     name=postData['name'],
                     username=postData['username'],
                     email=postData['email'],
                     password=(bcrypt.hashpw(postData['password'].encode(), bcrypt.gensalt()))
                     )
-               user.save()
-               status['user'] = user
+                user.save()
+                status['user'] = user
             except IntegrityError as e:
                 status['valid']=False
                 if 'UNIQUE constraint' in e.message:
-                    status['errors'].append('email already registered in system')
+                   status['errors'].append('email already registered in system')
                 else: 
                     status['errors'].append(e.message)
         return status

@@ -8,7 +8,7 @@ from . import ref_maker
 
 	
 def home(request):
-	content = {
+	context = {
 		'refs': Ref.objects.all(),
 		'leagues': League.objects.all(),
 		'users': User.objects.get(id=request.session['id']),
