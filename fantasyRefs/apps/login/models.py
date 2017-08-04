@@ -6,12 +6,12 @@ import re
 class UserManager(models.Manager):
 	def registerVal(self, postData):
 		results = {'status':True, 'errors':[], 'user':None}
-		if not postData['first_name'] or len(postData['first_name']) < 3:
+		if not postData['name'] or len(postData['name']) < 3:
 			results['status']=False
-			results['errors'].append('enter a valid first name')
-		if not postData['last_name'] or len(postData['last_name']) < 3:
+			results['errors'].append('enter a valid name')
+		if not postData['username'] or len(postData['username']) < 3:
 			results['status']=False
-			results['errors'].append('enter a valid last name')
+			results['errors'].append('enter a valid Username')
 		if not postData['email'] or not re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", postData['email']):
 			results['status']=False
 			results['errors'].append('please enter a valid email')
@@ -26,7 +26,7 @@ class UserManager(models.Manager):
 
 		if results['status']:
 			try:
-				user = User.objects.create(first_name=postData['first_name'], last_name=postData['last_name'], email=postData['email'], password=(bcrypt.hashpw(postData['password'].encode(), bcrypt.gensalt())))
+				user = User.objects.create(name=postData['name'], username=postData['username'], email=postData['email'], password=(bcrypt.hashpw(postData['password'].encode(), bcrypt.gensalt())))
 				user.save()
 				results['user']=user
 			except IntegrityError as e:
@@ -54,8 +54,8 @@ class UserManager(models.Manager):
 		return results
 
 class User(models.Model):
-	first_name = models.CharField(max_length=255)
-	last_name= models.CharField(max_length=255)
+	name = models.CharField(max_length=255)
+	username= models.CharField(max_length=255)
 	email = models.CharField(max_length=255, unique=True)
 	password = models.CharField(max_length=255)
 
