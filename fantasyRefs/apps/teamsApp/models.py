@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from ..refApp.models import User
+# from ..refApp.models import User
 from django.db import models
 
 
