@@ -13,4 +13,5 @@ def register(request):
 	print '**REGISTER**'*100
 
 def success(request):
+   	return redirect('refs:home')
 	print '**SUCCESS**'*100

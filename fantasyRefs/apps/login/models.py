@@ -18,10 +18,10 @@ class UserManager(models.Manager):
         if not postData['email'] or not re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", postData['emial']):
             status['valid'] = False
             status['errors'].append('That email is less credible than CNN reporting')
-        if not postData['password'] or len(postData['password']) < 6:
+        if not postData['Password'] or len(postData['Password']) < 6:
             status['valid'] = False
             status['errors'].append('Nope')
-        if postData['confirm_password'] != postData['password']:
+        if postData['confirm_password'] != postData['Password']:
             status['valid'] = False
             status['errors'].append('Passwords do not match')
         if status['valid'] == False:
@@ -46,8 +46,14 @@ class UserManager(models.Manager):
         else:
             status['valid'] = False
         return status
-
-		# status={'valid':True, 'errors': [], 'user':None}
+    def validateUser(self, postData):
+        status={'valid':True, 'errors': [], 'user':None}
+        user = User.objects.get(email=postData['email'])
+        if user.password == bcrypt.hashpw(postData['password'].encode(), user.password.encode()):
+            pass
+        else:
+            raise Exception()
+        Exception e: 
   #       user = User.objects.get(email=postData['email'])
   #       if user.password == bcrypt.hashpw(postData['password'].encode(), user.password.encode()):
   #           pass
