@@ -22,6 +22,13 @@
 		<input type="password" name="ConfirmPassword"><br><br>
 		<input type="submit" value="Register User"><br>
 	</form>
+	<form  action="login" method="POST">
+		{% csrf_token %}
+		<label for="Username">Username: </label>
+		<input type="Username" name="Username">
+		<label for="Password">Password: </label>
+		<input type="Password" name="Password">
+	</form>
 </body>
 </html>
 
