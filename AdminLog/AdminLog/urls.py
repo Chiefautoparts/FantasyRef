@@ -16,13 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from apps.Login.models import User as U
-class UAdmin(admin.ModelAdmin):
-	pass
-admin.site.register(U, UAdmin)
 
 #copy Login App into this folder
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^', include("apps.Login.urls")),
 
 ]

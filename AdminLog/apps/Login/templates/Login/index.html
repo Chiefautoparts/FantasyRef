@@ -1,0 +1,13 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Register User</title>
+</head>
+<body>
+	<form class=" " action="/register" method="post">
+	{%csrf_token%}
+	{{ regForm.as_p}}
+	<input type="submit" value="register">
+	</form>
+</body>
+</html>

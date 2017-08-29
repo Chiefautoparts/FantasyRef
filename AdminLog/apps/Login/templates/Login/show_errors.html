@@ -1,0 +1,15 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Errors</title>
+</head>
+<body>
+	{% if messages %}
+	<ul class="messaages">
+		{% for message in messages %}
+		<li>{{ message }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+</body>
+</html>
