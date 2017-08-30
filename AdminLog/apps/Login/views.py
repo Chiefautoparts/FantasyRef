@@ -32,3 +32,4 @@ def make_messages(request):
 
 def show_errors(request):
 	return render(request, 'Login/show_errors.html')
+
